@@ -1,0 +1,78 @@
+---
+title: AWS Certified Solutions Architect Associate exam prep - part1
+date: '2023-04-12'
+tags: ['AWS', 'SAA-CO3']
+draft: false
+summary: Detailed day by day explanation of preparing AWS Certified Solutions Architect Associate exam.
+---
+
+## **History of AWS**
+
+![History of AWS](/static/images/blogs/AWS/aws-history.webp)
+
+AWS was launched in 2002 internally at amazon.com. Because they realized that the IT departments could be externalized. So their Amazon infrastructure was one of their core strength and they said, "you know what" maybe we can do IT for someone else, "for other people." So they launched their first offering publicly which was SQS in 2004. In 2006, they expanded their offering and they relaunched with the availability of SQS, S3, and EC2. 
+Then they expanded and said, "you know what? "We don't have to be just in America. "We could be in Europe." And then fast forward to today, we have so many applications that used to run or are still running on AWS, such as Dropbox, Netflix, Airbnb, or even the NASA. 
+
+## **Where AWS is today?**
+
+
+<img alt="ocean" src="/static/images/blogs/AWS/magic-quadrant-for-cloud-infrastructure-and-platform-services.png" width={400} height={128} />
+
+
+
+If we look at the Gartner magic quadrants, which sort of ranks the cloud providers, as we can see AWS is on the top right corner, which is a leader. It's able to execute really well. And it has a really great completeness of vision. It is followed closely by Microsoft and Google. But still in 2019, AWS had $35 billion in annual revenue, which is huge and accounted for 47% of the market in 2019. With Microsoft being second with 22%. It is a pioneer and leader of the AWS Cloud Markets for the ninth consecutive year. And it has over 1 million active users. 
+
+
+
+## **What can you build on AWS?**
+
+Well, pretty much everything. AWS will enable you to build sophisticated and scalable applications and they are applicable to diverse set of industries. Every company has a use case for the cloud. So Netflix, McDonald's, 21st century Fox, Activision, they're all using the cloud. And use cases can include just transferring your enterprise IT or using the cloud as a backup and storage, or doing some big data analytics. You can also host a website or create a backend for your mobile and your social applications. Or you could have your entire gaming servers running on the clouds. The applications are endless. 
+
+Now AWS is global. And this is where we are going to learn a bit more specifics about how it works. So we have AWS regions, we have availability zones, data centers, edge locations, and points of presence. And all of these can be represented on the map right [here](https://aws.amazon.com/about-aws/global-infrastructure/regions_az/). 
+
+## **Regions**
+
+Regions are all around the world and regions have a name, it could be us-east-1, eu-west-3. Now a region, what is it? It's truly, well, it's going to be a cluster of data centers. So many different data centers. For example, Ohio or Singapore or Sydney or Tokyo. 
+
+When we use AWS services, most services are going to be linked and scoped to a specific region. That means that if we use a service in one region and we try to use it in another region, it will be like a new time of using the service. 
+
+
+> How do you choose an AWS region? So say you're launching a new application. Where should you do it? Should you do it in America, in Europe in South America, or in Australia?   
+
+> Well, of course it depends. But let's look at some factors that may impact your choice of a AWS region. 
+>
+> 1. The first one is `compliance`. So sometimes governments want the data to be local to the country you're deploying the application in. For example, France, data in France may have to stay in France and therefore you should launch your application in the French region. 
+> 2. Then, there is also a `concept of latency`. So if most of your users are going to be in America, it makes a lot of sense to deploy your application in America, close to your users, because they will have a reduced latency. If you deploy your application in Australia and your users are in America, they will have a lot of lag at using your application. 
+> 3. Then, also not all regions have all services. Okay? Some regions do not have services. And so obviously if you're leveraging a service with your application, you need to make sure that the region you're deploying into is available and does have that service. 
+> 4. And finally, `pricing`. So, pricing does vary from region to region and you need to consult the applicant, the services, pricing, to see what the differences are between the regions. But this could be obviously a factor that could impact your deployment of an application into a specific region. 
+
+## **Availability Zones**
+
+Availability zones are what actually are going into the region. So each region will have many availability zones. Usually three, the minimum is three, and the max is six. But, really the usual is three. So, let's take the Sydney region as an example. 
+
+<img alt="availibity-zones
+" src="/static/images/blogs/AWS/availibity-zones.png" width={400} height={128} />
+
+
+
+The senior region code is ap-southeast-2. So, we can have three availability zones in Sydney, ap-southeast-2a, ap-southeast-2b, and ap-southeast-2c. Now, each of these availability zones is one or more data centers that will have redundant power, networking, and connectivity. 
+
+That means that in southeast-2a, I can have two data centers maybe, as well two in 2b and two in 2c. But it could be one, it could be three, it could be four. We don't really know. AWS doesn't tell us that. But, what we know is that these availability zones are separate from each other so that they will be isolated from disasters. So, if something happens to ap-southeast-2a, we know that it is designed not to cascade into ap-southeast-2b, or ap-southeast-2c. So they're really isolated from disasters. And then these data centers, these availability zones, they are connected with high bandwidth, ultra low latency networking and therefore altogether being linked together, it will form a region. 
+
+## **AWS Points of Presence (Edge Locations)**
+
+AWS has more than 200 points of presence in 84 cities across 42 countries. And this will be very helpful when we deliver content to the end users with the lowest latency possible. 
+
+AWS has global services such as,
+- IAM 
+- Route 53
+- CloudFront
+- WAF
+
+Most AWS services are regions scoped such as,
+- Amazon EC2
+- Elastic Beanstalk
+- Lambda 
+- Rekognition. 
+
+Finally, to know if a service is available in your region, there is a region table you should check out right [here](https://aws.amazon.com/about-aws/global-infrastructure/regional-product-services/).
