@@ -34,3 +34,28 @@ So why do we create users and why do we create groups? Well, because we want to 
 
 
 So in this example, we can see that we allow people to use the EC2 to service and do describe on it, to use the elastic load balancing service and to describe on it and to use CloudWatch. Through this JSON document that looks just like this. We are allowing our users to use some services in AWS. So these policies will help us define permissions of our users. And so in AWS, you don't allow everyone to do everything that would be catastrophic, because a new user could basically launch so many services and they will cost you a lot of money or would be valid for security. So in AWS, you apply a principle called the least privilege principle. So you don't give more permissions than a user needs. Okay, so if a user just needs access to three services, just create a permission for that user.
+
+## **IAM - Policies Inheritance**
+
+![IAM policies inheritance](/static/images/blogs/AWS/IAM-policies-inheritance.webp)
+
+Let's imagine we have a group of developers, Alice, Bob and Charles, and we, attach a policy at the group level. In that case, the policy will get applied to every single member of the group so both Alice, Bob, and Charles they will all get access and inherit this policy. Now, if you have a second group with operations with a different policy, David and Edward will have a different policy than the group of developers. If Fred is a user, it has the possibility not to belong to a group. And we have the possibility to create what's called an `inline policy` which has a policy that's only attached to a user. So that user could or could not belong to a group you can have inline policies for whatever user you want. And finally, if Charles and David both belong to the audit team and you attach a policy to the audit team as well, Charles and David will also inherit that policy from the audit team. So in this case, Charles has a policy from developers and a policy from audit team. And David has a policy from audit team and a policy from the operations team. 
+
+## **IAM - Policies Structure**
+
+![IAM policies stucture](/static/images/blogs/AWS/IAM-policies-stucture.webp)
+
+An IAM policy structure, consists of,
+
+- **Version Number:** Usually it's 2012-10-17, this is the policy language version.
+- **ID:** It is how to identify that policy, this is optional. 
+- **Statements:** Statements can be one or multiple ones, and a statement has some very important parts. 
+
+
+Statements consists of, 
+- **Sid:** It is a statement ID, which is an identifier for the statement, which is optional as well
+- **Effect:** It is for whether or not the statement allows or denies access to certain API. 
+- **Principle:** It is consists of which accounts, user or role which, to which this policy will be applied to. So in this example, it's applied to the root accounts of your AWS accounts. 
+- **Action:** It is the list of API calls that will be either denied or allowed based on the effect. 
+- **Resource:** It is a list of resources, to which the actions will be applied to. So in this example, it is a bucket, but it could be many different things. 
+- **Condition:** When this statement should be applied or not, and this is not representative here because it is optional.

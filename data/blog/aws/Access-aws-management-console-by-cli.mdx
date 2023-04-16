@@ -1,0 +1,16 @@
+---
+title: Acceess AWS management console via CLI (SAA-CO3) - part3
+date: '2023-04-15'
+tags: ['AWS', 'SAA-CO3', AWS-CLI]
+draft: false
+summary: Learn how to configure CLI in local computer to access AWS management console via AWS CLI
+---
+
+## **AWS CLI - Configurations**
+
+1. Download AWS cli install in your local computer.
+2. To check whether installer properly install in your system or not, type `aws --version` in your CMD.
+3. Create new access key and secret access key token for IAM user from your AWS management console. [Learn how to genereate new access token for exiting user in AWS.]() 
+4. Open new CMD in you computer and configure that IAM user by writing `aws configure`. It will ask you to put your access key and secret access key token. Copy both from the AWS management console, which you just created in step 3. It will also ask for default region name and default output format. Write region code nearest to you (e.g. us-west-1), or you can write region name of your choice and skip default output format pressign enter. 
+5. Now your AWS CLI is configured. You can check it by typing `aws iam list-users`. It will list all the users in your account. 
+
