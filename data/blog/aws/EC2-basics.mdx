@@ -53,8 +53,6 @@ There are hundreds and hundreds of EC2 instance types, but, here are five for yo
 
 ### **Type of Instances**
 
-
-
 There are many different types of EC2 instances that you can use for different use cases and they have different types of optimization. In official [AWS website](https://aws.amazon.com/ec2/instance-types/), as we can see, we have different types of instances. We have general purpose, compute, optimized, memory optimize and so on. And so for each type of instance we have different families. Here is the high-level overview of how there naming work in AWS. 
 
 AWS will have the following naming convention:
@@ -80,6 +78,97 @@ So all these things are tasks that require a very good CPU very good compute sid
 Let's compare a few instance types. So for example as you seen picture above, for t2.micro we have one VCPU and one memory, one gigabytes of memory. And if you look for example, at r5.16xlarge we have 16 VCPU and 512 gigabytes of memory. So we can see there's a lot of more emphasis on the memory. If we compare it to example, to a c5d.4Xlarge we can see we have 16 VCPU and 32 gigabytes of memory. So less memory, more CPU and so on different network performance different EBS bandwidth and so on. 
 
 You can see all the EC2 instances comparision in a website called [instances.vantage.sh](https://www.instances.vantage.sh)
+
+ ## **EC2 instance purchasing options** 
+
+1. **On-demand instances:** They allow us to run instances on demands, that means they're good for short workloads, we get predictable pricing, and we're going to pay by the second. 
+    - Pay for what you use:
+        - Linux or Windows - billing per second, after the first minute
+        - All other OS - billing per hour
+    - Has heighest cost but no upfront payment
+    - No long-term commitments
+    - Recommended for a short-term and uninterrupted workload where you cannot predict how the application will behave. 
+
+2. **Reserved:**
+
+    **Reserved instances:** You have one year or three years term, and they're meant for long workloads. So if you know you're going to run a database for a long time, then a reserved instance is great. 
+        - Up to 72% discount comparison to On-demand instances
+        - You reserve a specific instance attributes (Instance Type, Region, Tenancy, OS)
+        - You specify a reservation period one year(discount+) or three years(discount+++), to get even more discounts
+        - Payment options: No upfront(discount+), Partial upfront(discount++), All upfront(discount+++)
+        - Reserved instance's scope: Regional or Zonal (reserve capacity in an AZ)
+        - You would use reserved instances for the steady-state usage applications(like database)
+        - You can buy or sell your reserved instances in a marketplace if you don't need them anymore
+
+    **Convertible reserved instances:** It allows you to change the instance type, the instance family, the operating system, the scope and the tenancy.
+        - Because you have more flexibility, well you get a bit less discounts you get up to 66% discounts
+    
+3. **Savings plan:** Savings plan are one and three years term, and they're more modern because instead of committing to a specific instance type, you commit to a specific amount of usage in dollars, and there again, for long workloads. 
+    - It is to allow you to get a discount based on long-term usage(upto 72% - same as RIs)
+    - Commit to certain type of usage (I want to spend $10 per hour for the next 1, 2, 3 year)
+    - Usage beyond the savings plan is going to be billed at the on-demand price
+    - Locked to a specific instance family and region (e.g. M5 in us-east-1)
+    - flexible across:
+        - Instance size(e.g., e5.xlarge, m5.2xlarge)
+        - OS (Linux, Windows)
+        - Tenancy (Host, Dedicated, Default)
+
+4. **Spot instances:** They are meant for very short workloads, they're very, very cheap, but at any time you can lose these instances and that makes them less reliable. 
+    - Can get discount upto 90% compared to On-demand
+    - They are instances you can lose at any point of time because you define a max price you're willing to pay for your spot instances. And if the spot price goes over it, then you're going to lose it.
+    - The MOST cost-effective instance in AWS
+    - Useful for workloads that are resilient to failure    
+        - Batch jobs
+        - Data analysis
+        - Image processing
+        - Any distributed workloads
+        - Workloads with a flexible state and end time
+    - Not suitable for critical jobs or database
+
+5. **Dedicated host:** It allows you to book an entire physical server and control instance placements. 
+    - A physical server with Ec2 instance capacity fully dedicated to your use.
+    - You want to have dedicated hosts in the use case of, you have compliance requirements or you need to use your existing server-bound software licenses that has billing based on a per-socket, per-core, per VM software licenses. This is in these kind of use cases that you need to access the physical server and get a dedicated host.
+    - Purchasing Host payment options:
+        - On-demand: pay per second for active dedicated-host
+        - Reserved: 1 or 3 years
+    - The most expensive option of AWS
+    - **Usecases:**
+        -  When you have a software that comes with a licensing model that is bring your own license
+        - if you have a company that has strong regulatory or compliance needs
+
+6. **Dedicated instances:**  In that no other customers will share your hardware
+    - Instance run on hardware that's dedicated to you, which is different from the physical server
+    - You may share the hardware with other instances in the same accounts and you have no control over instance placements (can move hardware after stop/start)
+
+    > Dedicated instances mean that you have your own instance on your own hardware, whereas dedicated host, you get access to the physical server itself and it gives you visibility into the lower level hardware.
+
+7. **Capacity reservations:** It allow you to reserve capacity in a specific AZ for any duration
+    - Can reserve on-demand instances in a specific AZ for any duration
+    - YOu always have access to EC2 capacity when you need it- 
+    - You have no time commitment so you can reserve capacity or cancel your reservation at any time, no billing account
+    -  So if you want to get billing discounts, you need to combine it with regional reserved instances or your savings plan
+    - You're charged at the on-demand rates, whether or not you run instances
+    - They're very suitable for short-term uninterrupted workloads that need to be in a specific AZ
+
+## **Understand purchasing option through an example of Resort**
+
+We'll take a resort as an analogy.
+
+![EC2 Instance Purchase Option Example - Resort](/static/images/blogs/AWS/EC2-instance-purchase-example--resort.webp)
+
+
+- The first one is on-demand. So and with on-demand, you have a resort and you come in whenever you like and whenever you like, you pay the full price. 
+- For reserved, well, you like to plan ahead and you know you're going to stay a very long time in your resort, one, two, three years, and then you're going to get a good discount because we know you're going to stay long time. 
+- Savings plan is saying, "Hey, I know for sure that in my resort I'm going to spend a specific amount. So I'm going to spend maybe $300 per month every month for the next 12 months." And therefore, you may wanna change the room type over time. So king, suite, sea view, and so on. But the savings plan is saying, "Hey, you're to commit to a specific spending in your hotel." 
+- Spot instances are whenever the hotel runs very last-minute discounts because they have empty rooms and they wanna attract people. So they get empty rooms and people bid on getting this empty room. And so you get very, very discounts. But in this specific resort, well, you can get kicked out of at any time if someone is willing to pay more for your room than what you did. (But I don't wanna stay in such a resort) 
+- Dedicated host is saying, "Hey, I want to book the entire building of the resort." So you get your own hardware, your own resort. 
+- And then capacity reservation is saying, "I'm going to book a room, I'm not even sure if I don't stay in, but I know that if I want to stay in, I will have it." And you will pay full price for booking that room nonetheless. In terms of price comparison, I've just put together this table to give you one example at one point of time. 
+
+## **Price Comparison Example - `m4.large - us-east-1`**
+
+![EC2 Instance Purchase Option Comparison](/static/images/blogs/AWS/EC2-instance-pricing-model-comparison.webp)
+
+So I took an m4.large in us-east-1, and the on-demand price is 10 cents, but then the spot price is going to be up to, for example, 61% off in my example. Then if you want to reserve your instance, as you can see, you have different pricing. If you wanted to have for one year, for three years, and pay no upfront or all upfront. Same for the EC2 savings plan we see that it is the same as a reserved instance discounts. We also get reserved convertible instances and we have dedicated host, which is at the on-demand price. The dedicated host reservation which is up to 70% off because you reserve your host. And capacity reservation again at the on-demand price. So the exam will ask you to just know which type of instance is the right one based on your workloads.
 
 
 
