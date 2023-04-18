@@ -1,5 +1,6 @@
 import siteMetadata from '@/data/siteMetadata'
 import { useEffect, useState } from 'react'
+import ThemeSwitch from './ThemeSwitch'
 const ScrollTopAndComment = () => {
   const [show, setShow] = useState(false)
   useEffect(() => {
@@ -19,9 +20,8 @@ const ScrollTopAndComment = () => {
     document.getElementById('comment').scrollIntoView()
   }
   return (
-    <div
-      className={`fixed bottom-8 right-8 hidden flex-col gap-3 ${show ? 'md:flex' : 'md:hidden'}`}
-    >
+    <div className={`fixed bottom-8 right-8 flex-col gap-3 ${show ? 'flex' : 'hidden'}`}>
+      <ThemeSwitch changeClass={true} />
       {siteMetadata.comments.provider && (
         <button
           aria-label="Scroll To Comment"

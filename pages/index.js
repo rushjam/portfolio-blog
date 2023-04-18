@@ -6,6 +6,7 @@ import { formatDate } from 'pliny/utils/formatDate'
 import { sortedBlogPost, allCoreContent } from 'pliny/utils/contentlayer'
 import { NewsletterForm } from 'pliny/ui/NewsletterForm'
 import { allBlogs } from 'contentlayer/generated'
+import Image from '@/components/Image'
 const MAX_DISPLAY = 5
 export const getStaticProps = async () => {
   const sortedPosts = sortedBlogPost(allBlogs)
@@ -32,17 +33,21 @@ export default function Home({ posts }) {
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
-            const { slug, date, title, summary, tags } = post
+            const { slug, date, title, summary, tags, thumbnail } = post
             return (
               <li key={slug} className="py-12">
                 <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                      </dd>
-                    </dl>
+                  <div className="items-center space-y-2 xl:grid xl:grid-cols-4 xl:space-x-10 xl:space-y-0 -sm:space-y-4">
+                    <div class="block">
+                      <Image
+                        width={300}
+                        height={300}
+                        layout="responsive"
+                        alt={summary}
+                        src={thumbnail}
+                        className="object-cover object-center"
+                      />
+                    </div>
                     <div className="space-y-5 xl:col-span-3">
                       <div className="space-y-6">
                         <div>

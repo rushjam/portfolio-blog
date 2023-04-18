@@ -89,6 +89,9 @@ export const Blog = defineDocumentType(() => ({
     canonicalUrl: {
       type: 'string',
     },
+    thumbnail: {
+      type: 'string',
+    },
   },
   computedFields,
 }))

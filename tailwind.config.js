@@ -18,6 +18,20 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      screens: {
+        '-2xl': {'max': '1535px'},
+  
+        '-xl': {'max': '1279px'},
+  
+        '-lg': {'max': '1023px'},
+        // => @media (max-width: 1023px) { ... }
+  
+        '-md': {'max': '767px'},
+        // => @media (max-width: 767px) { ... }
+  
+        '-sm': {'max': '639px'},
+        // => @media (max-width: 639px) { ... }
+      },
       spacing: {
         '9/16': '56.25%',
       },
@@ -105,6 +119,9 @@ module.exports = {
         },
         dark: {
           css: {
+            body: {
+              backgraoundColor: theme('colors.pink.500'),
+            },
             color: theme('colors.gray.300'),
             a: {
               color: theme('colors.primary.500'),
