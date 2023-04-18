@@ -38,7 +38,7 @@ export default function Home({ posts }) {
               <li key={slug} className="py-12">
                 <article>
                   <div className="items-center space-y-2 xl:grid xl:grid-cols-4 xl:space-x-10 xl:space-y-0 -sm:space-y-4">
-                    <div class="block">
+                    <div className="block">
                       <Image
                         width={300}
                         height={300}
