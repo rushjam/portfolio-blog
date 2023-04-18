@@ -42,14 +42,16 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           </div>
         </div>
       </header>
+      <div className="relative">
       <Image
-        width={300}
-        height={300}
+        width={200}
+        height={100}
         layout="responsive"
         alt={summary}
         src={thumbnail}
-        className="object-cover object-center"
-      />
+        className="object-contain object-center"
+        />
+        </div>
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">

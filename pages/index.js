@@ -45,7 +45,7 @@ export default function Home({ posts }) {
                         layout="responsive"
                         alt={summary}
                         src={thumbnail}
-                        className="object-cover object-center"
+                        className="object-contain object-center"
                       />
                     </div>
                     <div className="space-y-5 xl:col-span-3">
