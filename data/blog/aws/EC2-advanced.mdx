@@ -1,0 +1,68 @@
+---
+title: EC2 Advanced (SAA-CO3) - part5
+date: '2023-04-19'
+tags: ['AWS', 'SAA-CO3', EC2]
+draft: false
+summary: Learn EC2 advanced fundamental
+thumbnail: https://res.cloudinary.com/bignums/image/upload/v1681802737/Amazon-EC2_uusetb.webp
+---
+
+## **Placement groups**
+
+Sometimes you want control over the EC2 Instance placement strategy that strategy can be defined using *placement groups*.
+
+When you create a placement group, you specify one of the following strategies for the group:
+
+- Cluster: Clusters instances into a low-latency group in a single Availability Zone
+- Spread: Spreads instances across underlying hardware (max 7 instances per group per AZ)
+- Partition: Spreads instances across many different partitions (which rely on different sets of racks) within an AZ. Scales to 100s of EC2 instances per group (Hadoop, Cassandra, Kafka)
+
+**1. Cluster**  
+
+![EC2 placement group-cluster](/static/images/blogs/AWS/cluster.webp)
+
+It packs instances close together inside an Availability Zone. This strategy enables workloads to achieve the low-latency network performance necessary for tightly-coupled node-to-node communication that is typical of high-performance computing (HPC) applications.
+
+A cluster placement group is a logical grouping of instances within a single Availability Zone. A cluster placement group can span peered virtual private networks (VPCs) in the same Region. Instances in the same cluster placement group enjoy a higher per-flow throughput limit for TCP/IP traffic and are placed in the same high-bisection bandwidth segment of the network.
+
+- Pros: Great network (10 Gbps wandwidth between instances with Enhanced Networking enabled - recommended
+- Cons: If the rack fails, all instances fails at the same time
+- Use case:
+    - Big Data job that needs to complete fast
+    - Application that needs extremely low latency and high network throughput
+
+**2. Spread**  
+
+![EC2 placement group-spread](/static/images/blogs/AWS/spread.webp)
+
+It strictly places a small group of instances across distinct underlying hardware to reduce correlated failures.
+
+A spread placement group is a group of instances that are each placed on distinct hardware.
+
+Spread placement groups are recommended for applications that have a small number of critical instances that should be kept separate from each other. Launching instances in a spread level placement group reduces the risk of simultaneous failures that might occur when instances share the same equipment. Spread level placement groups provide access to distinct hardware, and are therefore suitable for mixing instance types or launching instances over time.
+
+- Pros: 
+    - Can span across Availability Zones (AZ)
+    - Reduced risk is simultaneous failure
+    - EC2 Instances are on different physical hardware
+- Cons: Limited to 7 instances per AZ per placement group
+- Use case:
+    - Application that needs to maximize high availability
+    - Critical Applications where each instance must be isolated from failure from each other
+
+**3. Partition**  
+
+It spreads your instances across logical partitions such that groups of instances in one partition do not share the underlying hardware with groups of instances in different partitions. This strategy is typically used by large distributed and replicated workloads, such as Hadoop, Cassandra, and Kafka.
+
+Partition placement groups help reduce the likelihood of correlated hardware failures for your application. When using partition placement groups, Amazon EC2 divides each group into logical segments called partitions. Amazon EC2 ensures that each partition within a placement group has its own set of racks. Each rack has its own network and power source. No two partitions within a placement group share the same racks, allowing you to isolate the impact of hardware failure within your application.
+
+![EC2 placement group-partition](/static/images/blogs/AWS/partition.webp)
+
+- Up to 7 partitions per AZ
+- Can span across multiple AZs in the same region
+- Up to 100s of EC2 instances
+- The instances in a partition do not share racks with the instances in the other partitions
+- A partition failure can affect many
+EC2 but won't affect other partitions
+- EC2 instances get access to the partition information as metadata
+- Use cases HDFS, HBase,. Cassandra.

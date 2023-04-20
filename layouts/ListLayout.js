@@ -4,6 +4,7 @@ import { formatDate } from 'pliny/utils/formatDate'
 import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
+import Image from '@/components/Image'
 function Pagination({ totalPages, currentPage }) {
   const router = useRouter()
   const basePath = router.pathname.split('/')[1]
@@ -89,16 +90,20 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
         <ul>
           {!filteredBlogPosts.length && 'No posts found.'}
           {displayPosts.map((post) => {
-            const { path, date, title, summary, tags } = post
+            const { path, date, title, summary, tags, thumbnail } = post
             return (
               <li key={path} className="py-4">
-                <article className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                  <dl>
-                    <dt className="sr-only">Published on</dt>
-                    <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                      <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                    </dd>
-                  </dl>
+                <article className="items-center space-y-2 xl:grid xl:grid-cols-4 xl:space-x-10 xl:space-y-0 -sm:space-y-4">
+                  <div className="block">
+                    <Image
+                      width={300}
+                      height={200}
+                      layout="responsive"
+                      alt={summary}
+                      src={thumbnail}
+                      className="object-contain object-center"
+                    />
+                  </div>
                   <div className="space-y-3 xl:col-span-3">
                     <div>
                       <h3 className="text-2xl font-bold leading-8 tracking-tight">
