@@ -1,0 +1,210 @@
+---
+title: Array/List in simple terms
+date: '2023-07-16'
+tags: ['DSA', 'Array', 'Python']
+draft: false
+summary: What is array or list in  programming language? This article will explain it in simple terms with real world use case.
+thumbnail: https://res.cloudinary.com/bignums/image/upload/v1689554916/array_yhdxuu.webp
+
+---
+
+## **What is Array or List?**
+
+
+**Arrays and Lists in Python**
+
+An array is a fundamental data structure, which can store multiple items of the same data type. Python doesn't have native support for arrays, but it has a more powerful alternative called lists. Python lists are dynamic and can hold items of different data types. They can shrink and grow as needed. Lists are most useful when you have a collection of data that does not need to be accessed in any specific order and the collection could change over time.
+
+**Memory Management**
+
+Python lists are essentially dynamic arrays. Python maintains an internal array of object references for each list. When items are appended to a list, and the internal array is full, Python allocates a larger array and copies the old elements to the new array. This process is called resizing. Python usually resizes arrays generously to minimize the costs of resizing when many items are appended. 
+
+**Common Python List Methods**
+
+1. `append()`: Adds an item to the end of the list.
+2. `extend()`: Adds all items from another list (or any iterable) to the end of the current list.
+3. `insert(i, x)`: Inserts an item at a specific position.
+4. `remove(x)`: Removes the first occurrence of a value.
+5. `pop([i])`: Removes the item at the given position, or the last item if no index is specified.
+6. `index(x[, start[, end]])`: Returns the first index at which a value occurs.
+7. `count(x)`: Counts the number of times a value occurs.
+8. `sort(key=None, reverse=False)`: Sorts the items.
+9. `reverse()`: Reverses the order of items.
+
+Let's delve deeper into Python lists.
+
+**Indexing and Slicing**
+
+Indexing and slicing are essential operations when working with Python lists. Python uses zero-based indexing, which means the first element of the list is at index 0.
+
+For instance, if you have the following list:
+
+```python
+fruits = ['apple', 'banana', 'cherry', 'date', 'elderberry']
+```
+
+You can access the elements using their indices:
+
+```python
+print(fruits[0])  # Output: apple
+print(fruits[2])  # Output: cherry
+```
+
+Negative indexing allows you to access elements from the end of the list:
+
+```python
+print(fruits[-1])  # Output: elderberry
+print(fruits[-3])  # Output: cherry
+```
+
+Slicing allows you to get a sublist from a list. The syntax is `list[start:stop:step]`. If omitted, `start` defaults to the beginning of the list, `stop` defaults to the end of the list, and `step` defaults to 1.
+
+```python
+print(fruits[1:3])  # Output: ['banana', 'cherry']
+print(fruits[:3])  # Output: ['apple', 'banana', 'cherry']
+print(fruits[3:])  # Output: ['date', 'elderberry']
+print(fruits[::2])  # Output: ['apple', 'cherry', 'elderberry']
+```
+
+**List Comprehensions**
+
+List comprehensions are a powerful feature in Python that allow you to create new lists in a very concise way.
+
+For instance, if you want to create a list of the first ten squares, you could do:
+
+```python
+squares = [i ** 2 for i in range(10)]
+```
+
+You can also use conditions in list comprehensions. For example, to get only the squares that are multiples of 4, you could do:
+
+```python
+squares = [i ** 2 for i in range(10) if i ** 2 % 4 == 0]
+```
+
+**Multidimensional Lists**
+
+A list can contain any type of elements, including other lists. This allows you to create multidimensional lists. For instance, you can represent a matrix as a list of lists:
+
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+```
+
+You can access the elements of this matrix using two indices:
+
+```python
+print(matrix[1][2])  # Output: 6
+```
+
+**The `in` Operator**
+
+The `in` operator allows you to check if a list contains a certain element. It returns `True` if the element is in the list and `False` otherwise.
+
+```python
+print('banana' in fruits)  # Output: True
+print('fig' in fruits)  # Output: False
+```
+
+Note that the `in` operator works by checking each element one by one, so its time complexity is O(n).
+
+**Best Practices for Building Robust Apps**
+
+- Always check the validity of indices before accessing elements by index. Python raises an `IndexError` if you try to access a non-existent index.
+- Be aware that adding, removing, or getting an item at the beginning of a list is not efficient because Python has to shift all other elements by one position. It's best to add, remove, or access elements at the end of the list whenever possible.
+- Understand that different methods have different time complexities. For example, `append()` is O(1), but `insert()` is O(n), and `sort()` is O(n log n). Make sure to choose the right methods based on your performance requirements.
+- Always write unit tests to check the correctness of your data manipulations. This is a good practice to ensure your app works as expected, and it helps you catch and fix errors early.
+
+## Real World Use Case: Music Playlist System
+
+Here's a simple idea to implement using Python lists: a music playlist system. You can represent a song as a dictionary, with keys such as 'title', 'artist', and 'genre'. A playlist can be a list of songs. 
+
+You can implement features like:
+
+- Adding a song to the playlist (`append()`).
+- Removing a song from the playlist by title or artist (`remove()`).
+- Displaying all songs in the playlist (simply print the list).
+- Shuffling the playlist (use the `random.shuffle()` function).
+- Finding a song by title or artist (`index()` and list comprehension).
+
+```python
+import random
+
+class Song:
+    def __init__(self, title, artist, genre):
+        self.title = title
+        self.artist = artist
+        self.genre = genre
+
+    def __str__(self):
+        return f"'{self.title}' by {self.artist} ({self.genre})"
+
+class Playlist:
+    def __init__(self):
+        self.songs = []
+
+    def add_song(self, title, artist, genre):
+        self.songs.append(Song(title, artist, genre))
+
+    def remove_song(self, title):
+        for song in self.songs:
+            if song.title == title:
+                self.songs.remove(song)
+                break
+
+    def view_songs(self):
+        for song in self.songs:
+            print(song)
+
+    def shuffle_songs(self):
+        random.shuffle(self.songs)
+
+# Usage
+playlist = Playlist()
+playlist.add_song("Song 1", "Artist 1", "Genre 1")
+playlist.add_song("Song 2", "Artist 2", "Genre 2")
+playlist.view_songs()  # View the playlist
+playlist.shuffle_songs()  # Shuffle the playlist
+playlist.view_songs()  # View the shuffled playlist
+playlist.remove_song("Song 1")  # Remove a song
+playlist.view_songs()  # View the playlist
+```
+
+## Python List Operation Time Complexities
+
+Python lists, which are dynamic arrays, offer a number of different operations. The time complexity of these operations can affect the performance of your Python code. Below, I've provided a list of common list operations along with their average time complexities.
+
+**Constant Time Operations - O(1)**
+
+These operations take the same amount of time, regardless of the size of the list:
+
+- `list[i]` - Get item
+- `list[i] = x` - Set item
+- `list.append(x)` - Append item
+- `list.pop()` - Remove item (only for last item)
+
+**Linear Time Operations - O(n)**
+
+These operations may need to traverse through each element in the list, hence the time taken grows linearly with the size of the list:
+
+- `x in/not in list` - Check if an item exists
+- `list.pop(i)` - Remove item (not last item)
+- `list.insert(i, x)` - Insert item
+- `list.remove(x)` - Remove by value
+- `list.index(x)` - Return index
+- `list.count(x)` - Count occurrences
+- `del list[i]` - Delete item
+
+**Others**
+
+These operations have different time complexities:
+
+- `len(list)` - Length of list, O(1)
+- `list[i:j]` - Get slice, O(k) (k is the length of slice)
+- `list1 + list2` - Concatenate lists, O(n+m) (n and m are sizes of the lists)
+- `list * n` - Repeat list, O(nk) (k is the number of repetitions)
+- `list.sort()` - Sort list, O(n log n)
+- `list.extend(iter)` - Extend list, O(k) (k is the length of the iterable)
+
+Please note, these are average case complexities. The exact time can depend on various factors, such as the current state of the list and the specific implementation details of the Python interpreter.
+
+In terms of space complexity, Python lists use O(n) space where n is the number of elements in the list.

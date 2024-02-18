@@ -1,0 +1,109 @@
+---
+title: Array/List advanced iterating techniques
+date: '2023-07-16'
+tags: ['DSA', 'Array', 'Python']
+draft: false
+summary: What is array or list in  programming language? This article will explain it in simple terms with advanced iterating techniques.
+thumbnail: https://res.cloudinary.com/bignums/image/upload/v1689554916/array_yhdxuu.webp
+
+---
+
+## **Array/List advanced iterating techniques**
+
+1. **List Comprehensions**: List comprehensions are a Pythonic way to transform one list into another list. They execute faster than a traditional `for` loop due to the optimized operations happening under the hood in Python.
+
+**Advanced Use Case**: You can also have nested list comprehensions. For example, to flatten a list of lists:
+```python
+numbers = [1, 2, 3, 4, 5]
+squares = [n**2 for n in numbers]
+print(squares)  # Output: [1, 4, 9, 16, 25]
+```
+
+**Limitations**: List comprehensions can sometimes be difficult to read, especially when they are complex or nested. It's often better to write a traditional `for` loop in these cases for the sake of clarity.
+
+**Good to Know**: List comprehensions have their own scope, meaning that variables defined in the comprehension won't leak into the surrounding scope.
+
+2. **enumerate Function**: The `enumerate` function is useful when you want to iterate over a list and have access to the index of the current item.
+
+**Advanced Use Case**: You can use the `start` parameter to change the starting index:
+```python
+fruits = ['apple', 'banana', 'cherry']
+for i, fruit in enumerate(fruits, start=1):
+    print(f"Fruit number {i} is {fruit}")
+    # Output: 
+    # Fruit number 1 is apple
+    # Fruit number 2 is banana
+    # Fruit number 3 is cherry
+```
+
+**Limitations**: `enumerate` is only useful when you need to know the index. If you don't need the index, using a simple `for` loop is more straightforward.
+
+**Good to Know**: The `enumerate` function returns an `enumerate` object, which is an iterator that provides indices and values from an iterable.
+
+3. **zip Function**: `zip` can be used to iterate over multiple lists in parallel. 
+
+**Advanced Use Case**: If the lists are of different lengths, `zip` stops as soon as the first list ends. You can use `itertools.zip_longest` if you want to continue iterating until the longest list ends:
+```python
+import itertools
+
+list1 = [1, 2, 3]
+list2 = ['a', 'b']
+for i, j in itertools.zip_longest(list1, list2):
+    print(i, j)
+    # Output: 
+    # 1 a
+    # 2 b
+    # 3 None
+```
+
+**Limitations**: `zip` stops as soon as the shortest list has been exhausted.
+
+**Good to Know**: The `zip` function returns a `zip` object which is an iterator of tuples.
+
+4. **List Comprehensions with `if` Conditions**: These allow you to create a new list from elements of an existing list that meet a condition.
+
+**Advanced Use Case**: You can include an `else` clause in a list comprehension, but it goes before the `for` clause when used in conjunction with an `if` clause:
+```python
+numbers = [1, 2, 3, 4, 5]
+even_squares = [n**2 for n in numbers if n % 2 == 0]
+print(even_squares)  # Output: [1, 4, 9, 16, 25]
+
+```
+```python
+numbers = [1, 2, 3, 4, 5]
+parity = ["even" if n % 2 == 0 else "odd" for n in numbers]
+print(parity)  # Output: ['odd', 'even', 'odd', 'even', 'odd']
+
+```
+
+**Limitations**: List comprehensions with conditions can become unreadable if they are complex. In such cases, consider using regular `for` loops.
+
+**Good to Know**: The `if` condition can filter the input list, while the `if-else` condition generates values based on the input list elements.
+
+5. **Nested List Comprehensions**: These can be used to work with multi-dimensional lists.
+
+**Advanced Use Case**: Nested list comprehensions can be used for matrix transposition:
+```python
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+transposed = [[row[i] for row in matrix] for i in range(3)]
+print(transposed)  # Output: [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
+
+```
+
+**Limitations**: These can be quite hard to read, especially for people not used to this concept.
+
+**Good to Know**: In Python, a nested list comprehension is read from left to right.
+
+6. **Generator Expressions**: Generators are iterators that generate one item at a time in the memory.
+
+**Advanced Use Case**: Generators can be used with the built-in `sum` function to compute the sum of values on-the-fly without storing the list in memory:
+```python
+numbernumbers = range(1, 101)
+sum_of_squares = sum(n**2 for n in numbers)
+print(sum_of_squares)  # Output: 338350
+
+```
+
+**Limitations**: Once a generator is iterated, you can't reuse or reset it.
+
+**Good to Know**: Generator expressions use parentheses "()" instead of brackets "[]". They save memory as they generate items only when asked for.

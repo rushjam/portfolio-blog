@@ -6,10 +6,10 @@ const siteMetadata = {
   author: 'Rushik Ramani',
   headerTitle: 'Blog',
   description:
-    'Welcome to my personal portfolio blog! Here, I showcase my work and share my thoughts on topics related to full-stack development field. Join me as I explore the latest trends and techniques in software development, and share my experiences along the way.',
+    'Welcome to my personal portfolio blog. Here, I showcase my work and share my thoughts on topics related to full-stack development field. Join me as I explore the latest trends and techniques in software development, and share my experiences along the way.',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://portfolio-blog-flax.vercel.app/',
+  siteUrl: 'https://blog.rushikk.com/',
   siteRepo: 'https://github.com/rushjam/portfolio-blog.git',
   siteLogo: '/static/images/logo.svg',
   image: '/static/images/avatar.png',

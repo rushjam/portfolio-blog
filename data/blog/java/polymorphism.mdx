@@ -1,0 +1,41 @@
+---
+title: Java - Polymorphism in simple term
+date: '2023-06-06'
+tags: ['Java', 'OOP', 'Polymorphism']
+draft: false
+summary: What is polymorphism in object-oriented programming language? This article will explain it in simple terms.
+thumbnail: https://res.cloudinary.com/bignums/image/upload/v1686084225/java-logo-vert-blk_eha0kc.webp
+
+---
+
+## **What is polymorphism?**
+
+Polymorphism is a concept in object-oriented programming that allows objects of different classes to be treated as if they belong to a common superclass. In simpler terms, it means that you can use different objects in a program interchangeably, as long as they share a common interface or inheritance hierarchy. Polymorphism in Java is a concept by which we can perform a single action in different ways. Polymorphism is derived from 2 Greek words: poly and morphs. The word "poly" means many and "morphs" means forms. So polymorphism means many forms.
+
+Think of a real-world example: animals. You have different types of animals like dogs, cats, and birds. Although they have distinct characteristics and behaviors, they all share some common traits as animals—they can eat, sleep, and make sounds. 
+
+In programming terms, you could have a superclass called "Animal" with common methods like `eat()`, `sleep()`, and `makeSound()`. The specific animal classes like "Dog," "Cat," and "Bird" would inherit from the Animal class and provide their own implementation of these methods.
+
+Now, imagine you have an array or list of Animal objects that contains instances of dogs, cats, and birds. You can loop through the array and call the `eat()`, `sleep()`, and `makeSound()` methods on each object, without knowing the specific type of animal. This is the power of polymorphism—you can treat different objects as if they are of the same type and interact with them using a common interface.
+
+Polymorphism allows for code reuse, flexibility, and extensibility. It enables you to write more generic and flexible code, making it easier to add new classes or modify existing ones without having to change a lot of code in other parts of the program.
+
+Here are a few more details about polymorphism:
+
+1. Method Overriding: Polymorphism is often achieved through method overriding, which occurs when a subclass provides its own implementation of a method that is already defined in its superclass. The overridden method in the subclass is invoked instead of the superclass method when called on an object of the subclass. This allows for different behavior based on the specific type of the object at runtime.
+
+2. Dynamic Binding: Polymorphism is also known as "dynamic binding" because the decision about which specific implementation of a method to execute is made at runtime based on the actual type of the object. This allows for flexibility and adaptability in object interactions.
+
+3. Example with Interfaces: Polymorphism is not limited to class inheritance. It can also be achieved through interface implementation. Multiple classes can implement the same interface, and objects of these different classes can be used interchangeably if they implement the interface methods. This allows for a high degree of flexibility and modularity in code design.
+
+4. Benefits of Polymorphism: Polymorphism promotes code reuse and simplifies code maintenance. It allows for more flexible and extensible designs, as new classes can be added without affecting existing code. Polymorphism also enhances the readability and understandability of code, as it enables more generic and intuitive interactions between objects.
+
+5. Polymorphism in Java: In Java, polymorphism is a fundamental concept. It is supported by the Java Virtual Machine (JVM), which dynamically dispatches method calls based on the actual type of the object at runtime. Polymorphism is commonly used in Java through inheritance, where subclasses override methods defined in the superclass. It can also be achieved through interfaces, where multiple classes can implement the same interface and provide their own implementations of interface methods.
+
+Overall, polymorphism is a powerful concept that allows for flexible and interchangeable use of objects, providing a foundation for creating reusable and extensible code in object-oriented programming.
+
+## **Interview Questions**
+1. What is polymorphism?
+
+    "Polymorphism is a concept in object-oriented programming where objects of different classes can be treated as if they belong to a common superclass or interface. It allows for code reuse and flexibility by enabling objects to be used interchangeably, even though they may have different implementations. This is achieved through method overriding, where a subclass provides its own implementation of a method defined in its superclass. Polymorphism enhances modularity, extensibility, and promotes the use of a common interface for interacting with objects of different types."
+
