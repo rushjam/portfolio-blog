@@ -4,7 +4,7 @@ import React from 'react'
 
 const HomeLayout = ({ posts }) => {
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-8 mb-12">
       <div className="-mx-4 flex flex-wrap">
         <div className="mb-4 w-full px-4 lg:w-3/5">
           {posts.slice(0, 1).map((post, index) => {
