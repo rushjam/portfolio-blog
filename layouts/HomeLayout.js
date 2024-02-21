@@ -3,40 +3,60 @@ import Tag from '@/components/Tag'
 import React from 'react'
 
 const HomeLayout = ({ posts }) => {
+  const convertDate = (date) => {
+    const originalDate = new Date(date)
+    const formattedDate = originalDate.toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    return formattedDate
+  }
+
+  const Post = ({ post, isLarge, isPhoto }) => {
+    const { slug, date, title, summary, tags, thumbnail } = post
+
+    return (
+      <div className="p-2">
+        {isPhoto && <img alt={summary} src={thumbnail} className="mb-4 w-full rounded-md" />}
+        {tags.slice(0, 1).map((tag) => (
+          <Tag key={tag} text={tag} />
+        ))}
+        <h2
+          className={`my-4 break-keep ${
+            isLarge ? 'text-5xl' : 'text-2xl'
+          } font-extrabold leading-10 tracking-tight`}
+        >
+          <Link
+            href={`/blog/${slug}`}
+            className="cursor-pointer text-gray-900 no-underline hover:underline dark:text-gray-100"
+          >
+            {title}
+          </Link>
+        </h2>
+        <p className="prose my-2 max-w-none text-sm text-gray-500 dark:text-gray-400">{summary}</p>
+        <p className="text-xs text-gray-500 dark:text-gray-400">{convertDate(date)}</p>
+      </div>
+    )
+  }
+
+  const Divider = ({ borderSize }) => {
+    return (
+      <div
+        className={`my-4 flex ${
+          borderSize ? `border-${borderSize}` : 'border'
+        } border-slate-200 dark:border-slate-800`}
+      ></div>
+    )
+  }
+
   return (
-    <div className="container mx-auto mt-8 mb-12">
+    <div className="container mx-auto mb-12 mt-8">
       <div className="-mx-4 flex flex-wrap">
         <div className="mb-4 w-full px-4 lg:w-3/5">
-          {posts.slice(0, 1).map((post, index) => {
-            const { slug, date, title, summary, tags, thumbnail } = post
-
-            const originalDate = new Date(date)
-            const formattedDate = originalDate.toLocaleDateString('en-US', {
-              month: 'long',
-              day: 'numeric',
-              year: 'numeric',
-            })
-            return (
-              <div className="p-2" key={0}>
-                <img alt={summary} src={thumbnail} className="mb-4 w-full rounded-md" />
-                {tags.slice(0, 1).map((tag) => (
-                  <Tag key={tag} text={tag} />
-                ))}
-                <h2 className="my-4 break-keep text-5xl font-extrabold leading-10 tracking-tight">
-                  <Link
-                    href={`/blog/${slug}`}
-                    className="cursor-pointer text-gray-900 no-underline hover:underline dark:text-gray-100"
-                  >
-                    {title}
-                  </Link>
-                </h2>
-                <p className="prose my-2 max-w-none text-sm text-gray-500 dark:text-gray-400">
-                  {summary}
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{formattedDate}</p>
-              </div>
-            )
-          })}
+          {posts.slice(0, 1).map((post, index) => (
+            <Post post={post} key={index} isLarge isPhoto />
+          ))}
         </div>
 
         <div className="mb-4 w-full px-2 lg:w-2/5">
@@ -44,16 +64,9 @@ const HomeLayout = ({ posts }) => {
             {posts.slice(1, 4).map((post, index) => {
               const { slug, date, title, summary, tags, thumbnail } = post
 
-              const originalDate = new Date(date)
-              const formattedDate = originalDate.toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              })
-
               return (
-                <>
-                  <div className="flex items-start gap-4" key={index}>
+                <div key={index}>
+                  <div className="flex items-start gap-4">
                     <img
                       alt={summary}
                       src={thumbnail}
@@ -74,85 +87,36 @@ const HomeLayout = ({ posts }) => {
                       <p className="prose my-2 max-w-none text-sm text-gray-500 dark:text-gray-400">
                         {summary}
                       </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">{formattedDate}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {convertDate(date)}
+                      </p>
                     </div>
                   </div>
-                  {index != '2' && (
-                    <div className="my-8 flex border border-slate-200	dark:border-slate-800"></div>
-                  )}
-                </>
+                  {index !== 2 && <Divider />}
+                </div>
               )
             })}
           </div>
         </div>
       </div>
-      <div className="my-8 flex border border-slate-200	dark:border-slate-800"></div>
+      <Divider borderSize="2" />
       <div className="-mx-4 flex flex-wrap">
-        {posts.slice(4, 6).map((post, index) => {
-          const { slug, date, title, summary, tags, thumbnail } = post
-
-          const originalDate = new Date(date)
-          const formattedDate = originalDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })
-          return (
-            <div className="mb-4 w-full px-4 lg:w-1/2" key={index}>
-              <div className="p-2">
-                <img alt={summary} src={thumbnail} className="mb-4 w-full rounded-md" />
-                {tags.slice(0, 1).map((tag) => (
-                  <Tag key={tag} text={tag} />
-                ))}
-                <h2 className="my-4 break-keep text-3xl font-extrabold leading-10 tracking-tight">
-                  <Link
-                    href={`/blog/${slug}`}
-                    className="cursor-pointer text-gray-900 no-underline hover:underline dark:text-gray-100"
-                  >
-                    {title}
-                  </Link>
-                </h2>
-                <p className="prose my-2 max-w-none text-gray-500 dark:text-gray-400">{summary}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{formattedDate}</p>
-              </div>
-            </div>
-          )
-        })}
+        {posts.slice(4, 6).map((post, index) => (
+          <div className="mb-4 w-full px-4 md:w-1/2 lg:w-1/2 xl:w-1/2" key={index}>
+            <Post post={post} isPhoto />
+          </div>
+        ))}
       </div>
+      <Divider borderSize="2" />
+      <h5 className="text-xl font-bold">Latest Post</h5>
+      <Divider />
 
-      <div className="my-4 flex border-2 border-slate-200	dark:border-slate-800"></div>
-      <h5 className="font-bold text-xl">Latest Post</h5>
-      <div className="mb-8 mt-4 flex border border-slate-200	dark:border-slate-800"></div>
-
-      <div className="flex justify-between gap-4">
-        {posts.slice(6, 10).map((post, index) => {
-          const { slug, date, title, summary, tags, thumbnail } = post
-
-          const originalDate = new Date(date)
-          const formattedDate = originalDate.toLocaleDateString('en-US', {
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric',
-          })
-
-          return (
-            <div className="mb-4 w-full px-4 lg:w-1/2" key={index}>
-              {tags.slice(0, 1).map((tag) => (
-                <Tag key={tag} text={tag} />
-              ))}
-              <h2 className="my-4 break-keep text-lg font-extrabold tracking-tight">
-                <Link
-                  href={`/blog/${slug}`}
-                  className="cursor-pointer text-gray-900 no-underline hover:underline dark:text-gray-100"
-                >
-                  {title}
-                </Link>
-              </h2>
-              <p className="prose my-2 max-w-none text-sm text-gray-500 dark:text-gray-400">{summary}</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">{formattedDate}</p>
-            </div>
-          )
-        })}
+      <div className="flex flex-wrap">
+        {posts.slice(6, 10).map((post, index) => (
+          <div className="mb-4 w-full px-4 md:w-1/2 lg:w-1/4 xl:w-1/4" key={index}>
+            <Post post={post} key={index} />
+          </div>
+        ))}
       </div>
     </div>
   )
