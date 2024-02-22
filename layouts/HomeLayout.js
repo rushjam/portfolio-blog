@@ -18,14 +18,20 @@ const HomeLayout = ({ posts }) => {
 
     return (
       <div className="p-2">
-        {isPhoto && <img alt={summary} src={thumbnail} className="mb-4 w-full rounded-md" />}
+        {isPhoto && (
+          <img
+            alt={summary}
+            src={thumbnail}
+            className={`mb-4 object-cover ${isLarge ? 'h-96' : 'h-64'} w-full rounded-md`}
+          />
+        )}
         {tags.slice(0, 1).map((tag) => (
           <Tag key={tag} text={tag} />
         ))}
         <h2
           className={`my-4 break-keep ${
             isLarge ? 'text-5xl' : 'text-2xl'
-          } font-extrabold leading-10 tracking-tight`}
+          } font-extrabold tracking-tight`}
         >
           <Link
             href={`/blog/${slug}`}
