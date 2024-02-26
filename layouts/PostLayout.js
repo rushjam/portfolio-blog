@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Comments } from 'pliny/comments'
 import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
@@ -17,15 +17,17 @@ const postDateTemplate = {
   month: 'long',
   day: 'numeric',
 }
+
 export default function PostLayout({ content, authorDetails, next, prev, children }) {
   const { filePath, path, slug, date, title, tags, thumbnail, summary } = content
   const basePath = path.split('/')[0]
   const [loadComments, setLoadComments] = useState(false)
+
   return (
     <SectionContainer>
       <BlogSEO url={`${siteMetadata.siteUrl}/${path}`} authorDetails={authorDetails} {...content} />
       <ScrollTopAndComment />
-      <header className="pt-6 pb-6">
+      <header className="pb-6 pt-6">
         <div className="space-y-1 text-center">
           <dl className="space-y-10">
             <div>
@@ -43,15 +45,15 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
         </div>
       </header>
       <div className="relative">
-      <Image
-        width={200}
-        height={100}
-        layout="responsive"
-        alt={summary}
-        src={thumbnail}
-        className="object-contain object-center"
+        <Image
+          width={200}
+          height={100}
+          layout="responsive"
+          alt={summary}
+          src={thumbnail}
+          className="object-contain object-center"
         />
-        </div>
+      </div>
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
