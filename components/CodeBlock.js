@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Loader from './Loader'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { nightOwl } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import dotenv from 'dotenv'
+dotenv.config({ encoding: 'latin1' })
+
+console.log(process.env.COMPILE_API)
+console.log(process.env.COMPILE_API_KEY)
+console.log(process.env.COMPILE_API_HOST)
 
 const CodeBlock = ({ userLang, userCode }) => {
   const [loading, setLoading] = useState(false)
@@ -10,6 +16,16 @@ const CodeBlock = ({ userLang, userCode }) => {
 
   const [isCopied, setIsCopied] = useState(false)
   const [isCompiled, setIsCompiled] = useState(false)
+
+  const [url, setUrl] = useState('')
+
+  useEffect(() => {
+    if (process.env.COMPILE_API) {
+      setUrl(process.env.COMPILE_API)
+    }
+  }, [])
+
+  console.log("URL - ",url)
 
   const codeLang = {
     python: 'python3',
@@ -22,11 +38,11 @@ const CodeBlock = ({ userLang, userCode }) => {
     setLoading(true)
     setIsCompiled(true)
 
-    const url = 'https://online-code-compiler.p.rapidapi.com/v1/'
+    const url = process.env.COMPILE_API
     const headers = {
       'Content-Type': 'application/json',
-      'X-RapidAPI-Key': '443b2fcacbmshd8560f53c957a42p187e82jsn3087ac1e575d',
-      'X-RapidAPI-Host': 'online-code-compiler.p.rapidapi.com',
+      'X-RapidAPI-Key': process.env.COMPILE_API_KEY,
+      'X-RapidAPI-Host': process.env.COMPILE_API_HOST,
     }
 
     const requestBody = {
@@ -147,7 +163,7 @@ const CodeBlock = ({ userLang, userCode }) => {
             </svg>
           )}
         </button>
-        <SyntaxHighlighter language={userLang} style={nightOwl}>
+        <SyntaxHighlighter language={userLang} style={{nightOwl}}>
           {userCode}
         </SyntaxHighlighter>
       </div>
